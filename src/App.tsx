@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { User } from 'firebase/auth';
 import VerificationReminder from './app/routes/VerificationReminder';
 import Login from '@routes/Login';
+import Drawer from '@/components/Drawer';
 
 function App() {
   const [user, setUser] = useState<User | null>(null);
@@ -22,6 +23,12 @@ function App() {
         <Route
           path='login'
           element={<Login />}
+        />
+      </Route>
+      <Route element={<Drawer />}>
+        <Route
+          path='notes'
+          element={<h1>Notes from '/notes</h1>}
         />
       </Route>
     </Routes>

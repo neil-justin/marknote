@@ -27,7 +27,8 @@
       "@/*": ["./src/*"],
       "@routes/*": ["./src/app/routes/*"],
       "@services/*": ["./src/services/*"],
-      "@utils/*": ["./src/utils/*"]
+      "@utils/*": ["./src/utils/*"],
+      "@assets/*": ["./src/assets/*"]
     }
   },
   "include": ["src"]
