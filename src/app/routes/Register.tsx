@@ -11,7 +11,7 @@ const Register = ({ updateUser }: RegisterProps) => (
     updateUser={updateUser}
     authFn={registerUser}
     headerText='Register to your account'
-    buttonText='Register'
+    formFor='Register'
     linkQuestion='Already have an account?'
     linkText='Log in'
     linkPath='/auth/login'

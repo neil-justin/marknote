@@ -5,6 +5,7 @@ import {
   sendEmailVerification,
   validatePassword,
   User,
+  signInWithEmailAndPassword,
 } from 'firebase/auth';
 import { auth } from '@/firebaseAuth';
 
@@ -32,4 +33,12 @@ export const registerUser = async (user: UserCredential): Promise<User> => {
   } else {
     throw new FirebaseError('auth/weak-password', 'Weak user password');
   }
+};
+
+export const loginUser = async (
+  userCredential: UserCredential
+): Promise<User> => {
+  const { email, password } = userCredential;
+
+  return (await signInWithEmailAndPassword(auth, email, password)).user;
 };

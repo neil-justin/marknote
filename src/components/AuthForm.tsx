@@ -9,10 +9,10 @@ import { FirebaseError } from 'firebase/app';
 import { useState } from 'react';
 
 interface AuthFormProps {
-  updateUser: React.Dispatch<React.SetStateAction<User | null>>;
+  updateUser?: React.Dispatch<React.SetStateAction<User | null>>;
   authFn: (user: UserCredential) => Promise<User>;
   headerText: string;
-  buttonText: string;
+  formFor: 'Register' | 'Log in';
   linkQuestion: string;
   linkText: string;
   linkPath: string;
@@ -23,7 +23,7 @@ const AuthForm = ({
   updateUser,
   authFn,
   headerText,
-  buttonText,
+  formFor,
   linkQuestion,
   linkText,
   linkPath,
@@ -43,7 +43,15 @@ const AuthForm = ({
 
       const firebaseUser = await authFn(user);
 
-      updateUser(firebaseUser);
+      // React doesn't allow invocation of optional function prop
+      // That said, I need to check if updateUser is passed first
+      if (formFor === 'Register' && updateUser) {
+        // Updating user state after registration allows us to
+        // render VerificationReminder component with included
+        // user email
+        updateUser(firebaseUser);
+      }
+
       navigate(successRedirectPath);
     } catch (error) {
       if (error instanceof FirebaseError) {
@@ -73,7 +81,7 @@ const AuthForm = ({
           type='submit'
           className='btn btn-primary btn-lg'
         >
-          {buttonText}
+          {formFor}
         </button>
         <p>
           {linkQuestion}{' '}
