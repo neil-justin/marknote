@@ -1,5 +1,6 @@
 import test, { expect } from '@playwright/test';
 import { loginUser } from './helpers';
+import 'dotenv/config';
 
 // If this test failed, it could mean that the specified
 // email address is already registered
@@ -8,11 +9,11 @@ test('User register successfully', async ({ page }) => {
 
   await page
     .getByRole('textbox', { name: 'johndoe@gmail.com' })
-    .fill('neiljustin.mallari@proton.me');
+    .fill(process.env.VITE_TEST_EMAIL as string);
   // Password field
   await page
     .getByRole('textbox', { name: '********' })
-    .fill('!Samplepassword83');
+    .fill(process.env.VITE_TEST_PASSWORD as string);
   await page.getByRole('button', { name: 'Register' }).click();
 
   await expect(
@@ -27,19 +28,24 @@ test('User logged in successfully', async ({ page }) => {
 
   await page
     .getByRole('textbox', { name: 'johndoe@gmail.com' })
-    .fill('neiljustin.mallari@proton.me');
+    .fill(process.env.VITE_TEST_EMAIL as string);
   // Password field
   await page
     .getByRole('textbox', { name: '********' })
-    .fill('!Samplepassword83');
+    .fill(process.env.VITE_TEST_PASSWORD as string);
+
+  page.getByRole('button', { name: 'Log in' }).click();
 
   // If Login form is hidden, that means user is redirected, hopefully
   // to /notes path or something similar
-  await expect(page.getByRole('button', { name: 'Log in' })).toBeHidden();
-  //getByText('Log in to your accountEmailEnter valid email addressPasswordMust be more than 8')
+  await expect(
+    page.getByText(
+      'Log in to your accountEmailEnter valid email addressPasswordMust be more than 8'
+    )
+  ).toBeHidden();
 });
 
-test.only('User logged out successfully', async ({ page }) => {
+test('User logged out successfully', async ({ page }) => {
   await loginUser(page);
   await page.getByTestId('app-drawer').click();
   await page.getByRole('link', { name: 'Log out' }).click();

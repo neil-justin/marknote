@@ -29,7 +29,9 @@
       "@services/*": ["./src/services/*"],
       "@utils/*": ["./src/utils/*"],
       "@assets/*": ["./src/assets/*"]
-    }
+    },
+
+    "types": ["node"]
   },
   "include": ["src"]
 }
