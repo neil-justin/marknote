@@ -24,7 +24,7 @@ const VerificationReminder = ({ user }: VerificationReminderProps) => {
             to='/signin'
             className='text-primary'
           >
-            Sign in
+            Log in
           </NavLink>{' '}
         </p>
       </div>
