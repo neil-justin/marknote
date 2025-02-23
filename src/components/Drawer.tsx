@@ -17,14 +17,14 @@ const staticItem: StaticItem[] = [
 
 const Drawer = () => {
   return (
-    <div>
-      <div className='drawer'>
+    <div className='flex'>
+      <div className='drawer max-w-fit z-10'>
         <input
           id='my-drawer'
           type='checkbox'
           className='drawer-toggle'
         />
-        <div className='drawer-content'>
+        <div className='drawer-content shadow-lg'>
           <label
             htmlFor='my-drawer'
             className='btn bg-base-100 border-0 drawer-button'
@@ -39,7 +39,7 @@ const Drawer = () => {
             aria-label='close sidebar'
             className='drawer-overlay'
           ></label>
-          <ul className='menu bg-base-200 text-base-content min-h-full w-80 py-8 px-0'>
+          <ul className='menu bg-base-200 min-h-full w-80 py-8 px-0'>
             {staticItem.map((item) => (
               <li
                 // If item is Log out, push item at the bottom of the drawer
