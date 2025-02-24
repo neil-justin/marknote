@@ -16,7 +16,7 @@ interface AuthFormProps {
   linkQuestion: string;
   linkText: string;
   linkPath: string;
-  successRedirectPath: string;
+  successRedirectPath: '/notes' | '/auth/verification-reminder';
 }
 
 const AuthForm = ({
@@ -43,9 +43,8 @@ const AuthForm = ({
 
       const firebaseUser = await authFn(user);
 
-      updateUser(firebaseUser);
-
       navigate(successRedirectPath);
+      updateUser(firebaseUser);
     } catch (error) {
       if (error instanceof FirebaseError) {
         setErrorMessage(error.message);

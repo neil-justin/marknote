@@ -23,7 +23,7 @@ function App() {
         />
         <Route
           path='login'
-          element={<Login />}
+          element={<Login updateUser={setUser} />}
         />
       </Route>
       <Route element={<Drawer />}>
