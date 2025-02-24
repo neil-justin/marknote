@@ -24,7 +24,7 @@ const Drawer = () => {
           type='checkbox'
           className='drawer-toggle'
         />
-        <div className='drawer-content shadow-lg'>
+        <div className='drawer-content shadow-sm'>
           <label
             htmlFor='my-drawer'
             className='btn bg-base-100 border-0 drawer-button'

@@ -28,7 +28,7 @@ function App() {
       </Route>
       <Route element={<Drawer />}>
         <Route
-          path='notes'
+          path='notes/:id?'
           element={<Notes />}
         />
       </Route>

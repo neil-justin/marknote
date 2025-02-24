@@ -4,3 +4,13 @@
 @plugin "daisyui" {
   themes: light --default, dark --prefersdark;
 }
+
+div:has(> .tiptap) {
+  flex: auto;
+}
+
+/* This prevents the webpage from getting pushed when the menu is opened */
+html {
+  /* Kind of like a scrollbar placeholder (it is there but not visible) */
+  overflow-y: scroll;
+}
