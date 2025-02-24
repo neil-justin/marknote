@@ -21,7 +21,7 @@ const VerificationReminder = ({ user }: VerificationReminderProps) => {
         <p>
           Already verified your account?{' '}
           <NavLink
-            to='/signin'
+            to='/auth/login'
             className='text-primary'
           >
             Log in
