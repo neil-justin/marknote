@@ -3,7 +3,7 @@ import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 
 interface TiptapProps {
-  content: string;
+  content: string | undefined;
 }
 
 // define your extension array
@@ -15,9 +15,9 @@ const Tiptap = ({ content }: TiptapProps) => {
     content,
     editorProps: {
       attributes: {
-        class: 'focus:outline-none h-full p-10'
-      }
-    }
+        class: 'focus:outline-none h-full p-10',
+      },
+    },
   });
 
   return <EditorContent editor={editor} />;

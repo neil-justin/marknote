@@ -29,7 +29,7 @@ function App() {
       <Route element={<Drawer user={user} />}>
         <Route
           path='notes/:id?'
-          element={<Notes />}
+          element={<Notes user={user as User} />}
         />
       </Route>
     </Routes>

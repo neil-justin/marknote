@@ -1,18 +1,22 @@
 import ContentArea from '@/components/ContentArea/index';
 import Menu from '@/components/Menu';
-import { NoteDoc } from '@/types';
+import { getNotes } from '@/services/note';
 import * as Icons from '@assets/icons';
+import { useQuery } from '@tanstack/react-query';
+import { User } from 'firebase/auth';
 
-const Notes = () => {
-  const notes: NoteDoc[] | null = [
-    {
-      id: 1,
-      title: 'This is a dummy note',
-      content: 'This is a dummy content',
-      pinned: false,
-      archived: false,
-    },
-  ];
+interface NotesProps {
+  user: User;
+}
+
+const Notes = ({ user }: NotesProps) => {
+  const { data: notes } = useQuery({
+    queryKey: ['notes'],
+    queryFn: () =>
+      getNotes(user.email as string, { archived: 'false', trashed: 'false' }),
+  });
+
+  if (!notes) return;
 
   return (
     <div className='grid sm:grid-cols-[30%_70%] lg:grid-cols-[25%_75%] h-screen w-screen'>

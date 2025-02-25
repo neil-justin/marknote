@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router';
 import * as Icons from '@assets/icons';
-import { NoteDoc } from '@/types';
+import { NoteDoc } from '@app/types';
 
 interface TitleAreaProps {
   note: NoteDoc;

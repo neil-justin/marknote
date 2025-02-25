@@ -1,14 +1,14 @@
-import { NoteDoc } from '@/types';
+import { NoteDoc } from '@app/types';
 import TitleArea from './TitleArea';
 import Tiptap from './Tiptap';
 
 interface ContentAreaProps {
-  note: NoteDoc | null;
+  note: NoteDoc | undefined;
   itemBasePath: '/notes';
 }
 
 const ContentArea = ({ note, itemBasePath }: ContentAreaProps) => {
-  if (!note) return null;
+  if (!note) return;
 
   return (
     <div className='shadow-md flex flex-col'>

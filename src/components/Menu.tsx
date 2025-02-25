@@ -2,12 +2,12 @@ import * as Icons from '@assets/icons';
 import { JSX } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { createNote } from '@/services/note';
-import { NoteDoc } from '@/types';
+import { NoteDoc } from '@app/types';
 import { NavLink } from 'react-router';
 import classNames from 'classnames';
 
 interface MenuProps {
-  notes: NoteDoc[] | null;
+  notes: NoteDoc[];
   textHeader: 'Notes';
   icon: JSX.Element;
   menuText: string;
@@ -59,7 +59,7 @@ const Menu = ({
           </div>
         ) : null}
       </div>
-      {!notes ? (
+      {notes.length < 1 ? (
         <div className='flex flex-col gap-3 justify-center items-center flex-auto'>
           <div>{icon}</div>
           <span>{menuText}</span>
