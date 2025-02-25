@@ -26,7 +26,7 @@ function App() {
           element={<Login updateUser={setUser} />}
         />
       </Route>
-      <Route element={<Drawer />}>
+      <Route element={<Drawer user={user} />}>
         <Route
           path='notes/:id?'
           element={<Notes />}

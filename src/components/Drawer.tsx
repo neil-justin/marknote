@@ -3,6 +3,7 @@ import * as Icons from '@assets/icons';
 import classNames from 'classnames';
 import { JSX } from 'react';
 import { logoutUser } from '@/services/user';
+import { User } from 'firebase/auth';
 
 interface StaticItem {
   text: 'Notes' | 'Log out';
@@ -15,7 +16,13 @@ const staticItem: StaticItem[] = [
   { text: 'Log out', path: '/home', icon: <Icons.Logout size={24} /> },
 ];
 
-const Drawer = () => {
+interface DrawerProps {
+  user: User | null;
+}
+
+const Drawer = ({ user }: DrawerProps) => {
+  if (!user) return;
+
   return (
     <div className='flex'>
       <div className='drawer max-w-fit z-10'>
