@@ -50,6 +50,21 @@ const TitleArea = ({ refetchNotes, note, itemBasePath }: TitleAreaProps) => {
     );
   };
 
+  const handleToggleArchive = () => {
+    mutation.mutate(
+      {
+        id: note.id.toString(),
+        archived: !note.archived,
+      },
+      {
+        onSuccess() {
+          refetchNotes();
+          navigate(itemBasePath);
+        },
+      }
+    );
+  };
+
   return (
     <div className='flex justify-between items-center shadow-sm px-4'>
       <div
@@ -90,9 +105,9 @@ const TitleArea = ({ refetchNotes, note, itemBasePath }: TitleAreaProps) => {
           ) : null}
           {itemBasePath === '/notes' ? (
             <li>
-              <NavLink to={itemBasePath}>
+              <button onClick={handleToggleArchive}>
                 {note.archived ? 'Unarchive' : 'Archive'} note
-              </NavLink>
+              </button>
             </li>
           ) : null}
           {itemBasePath === '/notes' ? (
