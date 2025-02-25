@@ -1,18 +1,37 @@
-import { NavLink } from 'react-router';
+import { NavLink, useNavigate } from 'react-router';
 import * as Icons from '@assets/icons';
 import { NoteDoc } from '@app/types';
+import { QueryObserverResult, useMutation } from '@tanstack/react-query';
+import { updateNote } from '@/services/note';
 
 interface TitleAreaProps {
+  refetchNotes: () => Promise<QueryObserverResult<NoteDoc[], Error>>;
   note: NoteDoc;
   itemBasePath: '/notes';
 }
 
-const TitleArea = ({ note, itemBasePath }: TitleAreaProps) => {
+const TitleArea = ({ refetchNotes, note, itemBasePath }: TitleAreaProps) => {
+  const navigate = useNavigate();
+
+  const mutation = useMutation({ mutationFn: updateNote });
+
   const handleNoteTitleChange = (e: React.KeyboardEvent<HTMLDivElement>) => {
     if (e.key === 'Enter') {
       // This prevents line break
       e.preventDefault();
-      console.log(e);
+
+      mutation.mutate(
+        {
+          id: note.id.toString(),
+          title: (e.target as HTMLDivElement).textContent as string,
+        },
+        {
+          onSuccess() {
+            refetchNotes();
+            navigate(`${itemBasePath}/${note.id.toString()}`);
+          },
+        }
+      );
     }
   };
 

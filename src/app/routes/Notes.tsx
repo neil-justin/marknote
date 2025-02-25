@@ -33,6 +33,7 @@ const Notes = ({ user }: NotesProps) => {
         itemBasePath='/notes'
       />
       <ContentArea
+        refetchNotes={refetch}
         itemBasePath='/notes'
         note={noteToDisplay}
       />
