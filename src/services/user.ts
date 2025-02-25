@@ -9,6 +9,9 @@ import {
   signOut,
 } from 'firebase/auth';
 import { auth } from '@/firebaseAuth';
+import axios from 'axios';
+
+const baseUrl = '/api/users';
 
 export const registerUser = async (user: UserCredential): Promise<User> => {
   const { email, password } = user;
@@ -30,6 +33,12 @@ export const registerUser = async (user: UserCredential): Promise<User> => {
       password
     );
     await sendEmailVerification(firebaseUser);
+
+    // This POST request will save user to MongoDB
+    await axios.post(`${baseUrl}/`, {
+      uid: firebaseUser.uid,
+      email: firebaseUser.email,
+    });
     return firebaseUser;
   } else {
     throw new FirebaseError('auth/weak-password', 'Weak user password');
