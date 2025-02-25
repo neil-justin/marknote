@@ -9,6 +9,7 @@ export interface NoteDoc extends Document {
   archived: boolean;
   createdAt: Date;
   updatedAt: Date;
+  trashedAt?: Date;
 }
 
 export interface NoteFilter {
@@ -24,4 +25,5 @@ export interface NoteReqBody {
   title?: string;
   pinned?: boolean;
   archived?: boolean;
+  trashedAt?: Date;
 }
