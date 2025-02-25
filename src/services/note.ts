@@ -34,4 +34,12 @@ const createNote = async (
   return await new Note({ ...body, userId: user.id }).save();
 };
 
-export default { getNotes, createNote };
+const updateNote = async (id: string, body: NoteReqBody): Promise<NoteDoc> => {
+  return (await Note.findByIdAndUpdate(
+    id,
+    { ...body },
+    { new: true }
+  )) as NoteDoc;
+};
+
+export default { getNotes, createNote, updateNote };

@@ -21,9 +21,22 @@ export const createNote = async (
   next: NextFunction
 ) => {
   console.log('params', req.params, 'body', req.body);
-  
+
   try {
     const note = await noteService.createNote(req.params.email, req.body);
+    res.json(note);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const updateNote = async (
+  req: Request<{ id: string }, NoteDoc, NoteReqBody>,
+  res: Response<NoteDoc>,
+  next: NextFunction
+) => {
+  try {
+    const note = await noteService.updateNote(req.params.id, req.body);
     res.json(note);
   } catch (error) {
     next(error);
