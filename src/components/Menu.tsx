@@ -71,7 +71,7 @@ const Menu = ({
       {notes.length < 1 ? (
         <div className='flex flex-col gap-3 justify-center items-center flex-auto'>
           <div>{icon}</div>
-          <span>{menuText}</span>
+          <button className='text-primary hover:cursor-pointer hover:text-base-content'>{menuText}</button>
         </div>
       ) : (
         <ul>
