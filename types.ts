@@ -23,4 +23,5 @@ export interface NoteQuery extends NoteFilter {
 export interface NoteReqBody {
   title?: string;
   pinned?: boolean;
+  archived?: boolean;
 }
