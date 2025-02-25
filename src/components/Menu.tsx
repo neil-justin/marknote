@@ -1,12 +1,13 @@
 import * as Icons from '@assets/icons';
 import { JSX } from 'react';
-import { useMutation } from '@tanstack/react-query';
+import { QueryObserverResult, useMutation } from '@tanstack/react-query';
 import { createNote } from '@/services/note';
 import { NoteDoc } from '@app/types';
-import { NavLink } from 'react-router';
+import { NavLink, useNavigate } from 'react-router';
 import classNames from 'classnames';
 
 interface MenuProps {
+  refetchNotes: () => Promise<QueryObserverResult<NoteDoc[], Error>>;
   notes: NoteDoc[];
   textHeader: 'Notes';
   icon: JSX.Element;
@@ -15,12 +16,15 @@ interface MenuProps {
 }
 
 const Menu = ({
+  refetchNotes,
   notes,
   textHeader,
   icon,
   menuText,
   itemBasePath,
 }: MenuProps) => {
+  const navigate = useNavigate();
+
   const mutation = useMutation({ mutationFn: createNote });
 
   const handleCreateNoteClick = (
@@ -28,7 +32,12 @@ const Menu = ({
   ) => {
     e.preventDefault();
 
-    mutation.mutate(undefined);
+    mutation.mutate(undefined, {
+      onSuccess(note) {
+        refetchNotes();
+        navigate(`${itemBasePath}/${note.id.toString()}`);
+      },
+    });
   };
 
   const handleNoteItemClick = (

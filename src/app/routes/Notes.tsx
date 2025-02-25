@@ -4,23 +4,30 @@ import { getNotes } from '@/services/note';
 import * as Icons from '@assets/icons';
 import { useQuery } from '@tanstack/react-query';
 import { User } from 'firebase/auth';
+import { useLocation } from 'react-router';
 
 interface NotesProps {
   user: User;
 }
 
 const Notes = ({ user }: NotesProps) => {
-  const { data: notes } = useQuery({
+  const noteId = useLocation().pathname.split('/')[2];
+
+  const { data: notes, refetch } = useQuery({
     queryKey: ['notes'],
     queryFn: () =>
       getNotes(user.email as string, { archived: 'false', trashed: 'false' }),
   });
 
+  console.log('noteId', noteId);
+
   if (!notes) return;
+  const noteToDisplay = notes.find((note) => note.id.toString() === noteId);
 
   return (
     <div className='grid sm:grid-cols-[30%_70%] lg:grid-cols-[25%_75%] h-screen w-screen'>
       <Menu
+        refetchNotes={refetch}
         notes={notes}
         textHeader='Notes'
         icon={<Icons.Note size={36} />}
@@ -29,7 +36,7 @@ const Notes = ({ user }: NotesProps) => {
       />
       <ContentArea
         itemBasePath='/notes'
-        note={notes[0]}
+        note={noteToDisplay}
       />
     </div>
   );
