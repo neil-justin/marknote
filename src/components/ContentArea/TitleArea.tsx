@@ -1,4 +1,4 @@
-import { NavLink, useNavigate } from 'react-router';
+import { useNavigate } from 'react-router';
 import * as Icons from '@assets/icons';
 import { NoteDoc } from '@app/types';
 import { QueryObserverResult, useMutation } from '@tanstack/react-query';
@@ -65,6 +65,21 @@ const TitleArea = ({ refetchNotes, note, itemBasePath }: TitleAreaProps) => {
     );
   };
 
+  const handleMoveToTrash = () => {
+    mutation.mutate(
+      {
+        id: note.id.toString(),
+        trashedAt: new Date(),
+      },
+      {
+        onSuccess() {
+          refetchNotes();
+          navigate(itemBasePath);
+        },
+      }
+    );
+  };
+
   return (
     <div className='flex justify-between items-center shadow-sm px-4'>
       <div
@@ -112,7 +127,7 @@ const TitleArea = ({ refetchNotes, note, itemBasePath }: TitleAreaProps) => {
           ) : null}
           {itemBasePath === '/notes' ? (
             <li>
-              <NavLink to={itemBasePath}>Move to trash</NavLink>
+              <button onClick={handleMoveToTrash}>Move to trash</button>
             </li>
           ) : null}
         </ul>
