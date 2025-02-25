@@ -60,7 +60,7 @@ const Menu = ({
             data-tip='Create Note'
           >
             <button
-              onClick={(e) => handleCreateNoteClick(e)}
+              onClick={handleCreateNoteClick}
               className='btn btn-ghost hover:cursor-pointer'
             >
               <Icons.CreateNote size={24} />
@@ -71,7 +71,12 @@ const Menu = ({
       {notes.length < 1 ? (
         <div className='flex flex-col gap-3 justify-center items-center flex-auto'>
           <div>{icon}</div>
-          <button className='text-primary hover:cursor-pointer hover:text-base-content'>{menuText}</button>
+          <button
+            onClick={handleCreateNoteClick}
+            className='text-primary hover:cursor-pointer hover:text-base-content'
+          >
+            {menuText}
+          </button>
         </div>
       ) : (
         <ul>
