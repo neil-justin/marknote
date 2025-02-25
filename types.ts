@@ -19,3 +19,7 @@ export interface NoteFilter {
 export interface NoteQuery extends NoteFilter {
   email: string;
 }
+
+export interface NoteReqBody {
+  title: string;
+}
