@@ -35,6 +35,21 @@ const TitleArea = ({ refetchNotes, note, itemBasePath }: TitleAreaProps) => {
     }
   };
 
+  const handleTogglePin = () => {
+    mutation.mutate(
+      {
+        id: note.id.toString(),
+        pinned: !note.pinned,
+      },
+      {
+        onSuccess() {
+          refetchNotes();
+          navigate(`${itemBasePath}/${note.id.toString()}`);
+        },
+      }
+    );
+  };
+
   return (
     <div className='flex justify-between items-center shadow-sm px-4'>
       <div
@@ -68,7 +83,9 @@ const TitleArea = ({ refetchNotes, note, itemBasePath }: TitleAreaProps) => {
         >
           {itemBasePath === '/notes' ? (
             <li>
-              <button>{note.pinned ? 'Unpin' : 'Pin'} note</button>
+              <button onClick={handleTogglePin}>
+                {note.pinned ? 'Unpin' : 'Pin'} note
+              </button>
             </li>
           ) : null}
           {itemBasePath === '/notes' ? (
