@@ -1,7 +1,7 @@
 import Note from '@models/note';
 import User from '@models/user';
 import { UserDoc } from '@/types';
-import { NoteQuery } from '@app/types';
+import { NoteDoc, NoteQuery, NoteReqBody } from '@app/types';
 
 const getNotes = async (query: NoteQuery) => {
   const { email, archived, trashed } = query;
@@ -23,4 +23,15 @@ const getNotes = async (query: NoteQuery) => {
   }).sort({ updatedAt: 'descending' });
 };
 
-export default { getNotes };
+const createNote = async (
+  email: string,
+  body: NoteReqBody | undefined
+): Promise<NoteDoc> => {
+  const user = (await User.findOne({
+    email,
+  })) as UserDoc;
+
+  return await new Note({ ...body, userId: user.id }).save();
+};
+
+export default { getNotes, createNote };
