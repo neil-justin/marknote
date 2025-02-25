@@ -19,8 +19,6 @@ const Notes = ({ user }: NotesProps) => {
       getNotes(user.email as string, { archived: 'false', trashed: 'false' }),
   });
 
-  console.log('noteId', noteId);
-
   if (!notes) return;
   const noteToDisplay = notes.find((note) => note.id.toString() === noteId);
 
