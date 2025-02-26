@@ -25,7 +25,6 @@ const Drawer = ({ user }: DrawerProps) => {
   const { data: notes, refetch } = useQuery({
     queryKey: ['notes'],
     queryFn: () => {
-      console.log('user inside queryFn', user);
       // Provided queryFn callback won't run when User accidentally visited
       // /notes (or related) path if User is not yet signed in
       if (!user) return;
@@ -33,8 +32,6 @@ const Drawer = ({ user }: DrawerProps) => {
       return getNotes(user.email as string);
     },
   });
-
-  console.log('notes in Drawer', notes);
 
   if (!notes) return;
 
