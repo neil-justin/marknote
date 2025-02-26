@@ -26,4 +26,5 @@ export interface NoteReqBody {
   pinned?: boolean;
   archived?: boolean;
   trashedAt?: Date;
+  content?: string;
 }
