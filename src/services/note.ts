@@ -19,7 +19,7 @@ export const createNote = async (): Promise<NoteDoc> => {
 };
 
 export const getNotes = async (email: string): Promise<NoteDoc[]> => {
-  return (await axios.get(`${baseUrl}`, { params: email })).data;
+  return (await axios.get(`${baseUrl}`, { params: { email } })).data;
 };
 
 export const updateNote = async ({
