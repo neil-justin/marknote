@@ -4,22 +4,12 @@ import { UserDoc } from '@/types';
 import { NoteDoc, NoteQuery, NoteReqBody } from '@app/types';
 
 const getNotes = async (query: NoteQuery) => {
-  const { email, archived, trashed } = query;
+  const { email } = query;
 
   const user = (await User.findOne({ email })) as UserDoc;
 
   return await Note.find({
     userId: user.id,
-    // If archived exists,
-    ...(archived !== undefined && {
-      // Include archived field in filter
-      archived: JSON.parse(archived),
-    }),
-    ...(trashed !== undefined && {
-      // This filter field will return all documents with a defined trashedAt
-      // field if trashed is true
-      trashedAt: { $exists: JSON.parse(trashed) },
-    }),
   }).sort({ updatedAt: 'descending' });
 };
 
