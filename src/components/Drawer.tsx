@@ -4,7 +4,8 @@ import classNames from 'classnames';
 import { JSX } from 'react';
 import { logoutUser } from '@/services/user';
 import { User } from 'firebase/auth';
-
+import { getNotes } from '@/services/note';
+import { useQuery } from '@tanstack/react-query';
 interface StaticItem {
   text: 'Notes' | 'Log out';
   path: '/notes' | '/home';
@@ -21,7 +22,24 @@ interface DrawerProps {
 }
 
 const Drawer = ({ user }: DrawerProps) => {
-  if (!user) return;
+  const { data: notes, refetch } = useQuery({
+    queryKey: ['notes'],
+    queryFn: () => {
+      console.log('user inside queryFn', user);
+      // Provided queryFn callback won't run when User accidentally visited
+      // /notes (or related) path if User is not yet signed in
+      if (!user) return;
+
+      return getNotes(user.email as string, {
+        archived: 'false',
+        trashed: 'false',
+      });
+    },
+  });
+
+  console.log('notes in Drawer', notes);
+
+  if (!notes) return;
 
   return (
     <div className='flex'>
@@ -69,7 +87,7 @@ const Drawer = ({ user }: DrawerProps) => {
           </ul>
         </div>
       </div>
-      <Outlet />
+      <Outlet context={{ notes, refetch }} />
     </div>
   );
 };

@@ -1,25 +1,16 @@
 import ContentArea from '@/components/ContentArea/index';
 import Menu from '@/components/Menu';
-import { getNotes } from '@/services/note';
+import { useNotes } from '@/utils/hooks';
 import * as Icons from '@assets/icons';
-import { useQuery } from '@tanstack/react-query';
-import { User } from 'firebase/auth';
 import { useLocation } from 'react-router';
 
-interface NotesProps {
-  user: User;
-}
+const Notes = () => {
+  const { notes, refetch } = useNotes();
 
-const Notes = ({ user }: NotesProps) => {
+  console.log('notes in Notes', notes);
+
   const noteId = useLocation().pathname.split('/')[2];
 
-  const { data: notes, refetch } = useQuery({
-    queryKey: ['notes'],
-    queryFn: () =>
-      getNotes(user.email as string, { archived: 'false', trashed: 'false' }),
-  });
-
-  if (!notes) return;
   const noteToDisplay = notes.find((note) => note.id.toString() === noteId);
 
   return (
