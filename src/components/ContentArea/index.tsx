@@ -23,7 +23,10 @@ const ContentArea = ({
         note={note}
         itemBasePath={itemBasePath}
       />
-      <Tiptap content={note.content} />
+      <Tiptap
+        refetchNotes={refetchNotes}
+        note={note}
+      />
     </div>
   );
 };

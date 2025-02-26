@@ -40,10 +40,8 @@ const Menu = ({
     });
   };
 
-  const handleNoteItemClick = (
-    e: React.MouseEvent<HTMLAnchorElement, MouseEvent>
-  ) => {
-    console.log(e);
+  const handleNoteItemClick = () => {
+    refetchNotes();
   };
 
   return (
@@ -88,7 +86,7 @@ const Menu = ({
                     'bg-primary/40': isActive,
                   })
                 }
-                onClick={(e) => handleNoteItemClick(e)}
+                onClick={handleNoteItemClick}
                 to={`${itemBasePath}/${note.id}`}
               >
                 {note.title}
