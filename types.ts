@@ -11,13 +11,7 @@ export interface NoteDoc extends Document {
   updatedAt: Date;
   trashedAt?: Date;
 }
-
-export interface NoteFilter {
-  archived?: 'true' | 'false';
-  trashed?: 'true' | 'false';
-}
-
-export interface NoteQuery extends NoteFilter {
+export interface NoteQuery {
   email: string;
 }
 
