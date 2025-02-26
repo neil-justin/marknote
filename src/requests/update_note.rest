@@ -1,6 +1,6 @@
-PUT http://localhost:3000/api/notes/67bdcaa9baf95e4bd20a53a2
+PUT http://localhost:3000/api/notes/67bf3f50f43fa4f0a88912fb
 Content-Type: application/json
 
 {
-  "content": "<p>This content is created from REST client</p>"
+  "labels": ["css"]
 }

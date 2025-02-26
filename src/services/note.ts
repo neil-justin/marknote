@@ -25,6 +25,14 @@ const createNote = async (
 };
 
 const updateNote = async (id: string, body: NoteReqBody): Promise<NoteDoc> => {
+  if (body.labels) {
+    return (await Note.findByIdAndUpdate(
+      id,
+      { $addToSet: { labels: { $each: body.labels } } },
+      { new: true }
+    )) as NoteDoc;
+  }
+
   return (await Note.findByIdAndUpdate(
     id,
     { ...body },

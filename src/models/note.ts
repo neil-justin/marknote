@@ -14,6 +14,7 @@ const noteSchema = new mongoose.Schema(
     archived: { type: Boolean, default: false },
     // expires document with set trashedAt field after 7 days
     trashedAt: { type: Date, default: undefined, expires: 604800 },
+    labels: { type: [String] },
   },
   { timestamps: true }
 );
