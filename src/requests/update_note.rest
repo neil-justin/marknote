@@ -1,6 +1,6 @@
-PUT http://localhost:3000/api/notes/67bd8849637781e4878e0659
+PUT http://localhost:3000/api/notes/67bdcaa9baf95e4bd20a53a2
 Content-Type: application/json
 
 {
-  "title": "This note is modified from REST client"
+  "content": "<p>This content is created from REST client</p>"
 }
