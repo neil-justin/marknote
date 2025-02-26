@@ -1,4 +1,4 @@
-import { NoteDoc, NoteFilter, NoteReqBody } from '@app/types';
+import { NoteDoc, NoteReqBody } from '@app/types';
 import axios from 'axios';
 import { FirebaseError } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
@@ -18,11 +18,8 @@ export const createNote = async (): Promise<NoteDoc> => {
   return (await axios.post(`${baseUrl}/${user.email}`)).data;
 };
 
-export const getNotes = async (
-  email: string,
-  filter: NoteFilter
-): Promise<NoteDoc[]> => {
-  return (await axios.get(`${baseUrl}`, { params: { email, ...filter } })).data;
+export const getNotes = async (email: string): Promise<NoteDoc[]> => {
+  return (await axios.get(`${baseUrl}`, { params: email })).data;
 };
 
 export const updateNote = async ({

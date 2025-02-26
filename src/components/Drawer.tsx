@@ -30,10 +30,7 @@ const Drawer = ({ user }: DrawerProps) => {
       // /notes (or related) path if User is not yet signed in
       if (!user) return;
 
-      return getNotes(user.email as string, {
-        archived: 'false',
-        trashed: 'false',
-      });
+      return getNotes(user.email as string);
     },
   });
 
