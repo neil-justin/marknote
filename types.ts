@@ -24,3 +24,8 @@ export interface NoteReqBody {
   content?: string;
   labels?: string[];
 }
+
+export interface LabelParams {
+  id?: string;
+  label: string;
+}
