@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import { JSX, useState } from 'react';
 import { logoutUser } from '@/services/user';
 import { User } from 'firebase/auth';
-import { getNotes, updateLabel } from '@/services/note';
+import { getNotes, removeManyLabels, updateLabel } from '@/services/note';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import kebabCase from 'just-kebab-case';
 
@@ -40,7 +40,10 @@ const Drawer = ({ user }: DrawerProps) => {
     },
   });
 
-  const mutation = useMutation({ mutationFn: updateLabel });
+  const labelMutation = useMutation({ mutationFn: updateLabel });
+  const { mutate: mutateManyLabels } = useMutation({
+    mutationFn: removeManyLabels,
+  });
 
   const [activeLabel, setActiveLabel] = useState<string | null>(null);
 
@@ -87,7 +90,7 @@ const Drawer = ({ user }: DrawerProps) => {
       const newLabel = (e.target as HTMLSpanElement).textContent as string;
 
       // activeLabel is the previous value of newLabel
-      mutation.mutate(
+      labelMutation.mutate(
         { label: activeLabel as string, newLabel },
         {
           onSuccess() {
@@ -97,6 +100,24 @@ const Drawer = ({ user }: DrawerProps) => {
         }
       );
     }
+  };
+
+  const handleRemoveLabel = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    e.preventDefault();
+    const label = (e.target as HTMLButtonElement).value;
+
+    console.log('label', label);
+    mutateManyLabels(
+      { label },
+      {
+        onSuccess() {
+          setActiveLabel(null);
+          refetch();
+        },
+      }
+    );
   };
 
   return (
@@ -152,13 +173,25 @@ const Drawer = ({ user }: DrawerProps) => {
                   >
                     {item.text}
                   </span>
-                  <button
-                    onClick={(e) => handleEditLabelClick(e)}
-                    value={item.text}
-                    className='btn btn-ghost invisible group-hover:visible'
-                  >
-                    Edit
-                  </button>
+                  {activeLabel ? (
+                    <button
+                      className={classNames('btn btn-ghost invisible', {
+                        'group-hover:visible': activeLabel === item.text,
+                      })}
+                      onClick={(e) => handleRemoveLabel(e)}
+                      value={item.text}
+                    >
+                      Remove
+                    </button>
+                  ) : (
+                    <button
+                      onClick={(e) => handleEditLabelClick(e)}
+                      value={item.text}
+                      className='btn btn-ghost invisible group-hover:visible'
+                    >
+                      Edit
+                    </button>
+                  )}
                 </NavLink>
               </li>
             ))}
