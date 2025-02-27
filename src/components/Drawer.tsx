@@ -92,6 +92,7 @@ const Drawer = ({ user }: DrawerProps) => {
         {
           onSuccess() {
             setActiveLabel(null);
+            refetch();
           },
         }
       );
