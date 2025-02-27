@@ -51,7 +51,7 @@ const LabelArea = ({ refetchNotes, itemBasePath, note }: LabelAreaProps) => {
       ) : null}
       <input
         type='text'
-        placeholder='Type here'
+        placeholder='Add a label...'
         className='input input-ghost focus:outline-0'
         onKeyDown={(e) => handleAddLabel(e)}
       />
