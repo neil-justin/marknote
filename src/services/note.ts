@@ -1,4 +1,4 @@
-import { NoteDoc, NoteReqBody } from '@app/types';
+import { LabelParams, NoteDoc, NoteReqBody } from '@app/types';
 import axios from 'axios';
 import { FirebaseError } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
@@ -27,4 +27,8 @@ export const updateNote = async ({
   ...newBody
 }: NoteReqBody & { id: string }): Promise<NoteDoc> => {
   return (await axios.put(`${baseUrl}/${id}`, newBody)).data;
+};
+
+export const removeLabel = async ({ id, label }: LabelParams) => {
+  return (await axios.delete(`${baseUrl}/${id}/labels/${label}`)).data;
 };

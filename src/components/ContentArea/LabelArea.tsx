@@ -1,4 +1,4 @@
-import { updateNote } from '@/services/note';
+import { removeLabel, updateNote } from '@/services/note';
 import { NoteDoc } from '@app/types';
 import { QueryObserverResult, useMutation } from '@tanstack/react-query';
 import { useNavigate } from 'react-router';
@@ -12,7 +12,8 @@ interface LabelAreaProps {
 const LabelArea = ({ refetchNotes, itemBasePath, note }: LabelAreaProps) => {
   const navigate = useNavigate();
 
-  const mutation = useMutation({ mutationFn: updateNote });
+  const noteMutation = useMutation({ mutationFn: updateNote });
+  const labelMutation = useMutation({ mutationFn: removeLabel });
 
   const handleAddLabel = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
@@ -20,7 +21,7 @@ const LabelArea = ({ refetchNotes, itemBasePath, note }: LabelAreaProps) => {
 
       e.preventDefault();
 
-      mutation.mutate(
+      noteMutation.mutate(
         {
           id: note.id.toString(),
           labels: [labelInput.value],
@@ -36,13 +37,32 @@ const LabelArea = ({ refetchNotes, itemBasePath, note }: LabelAreaProps) => {
     }
   };
 
+  const handleRemoveLabel = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    labelMutation.mutate(
+      {
+        id: note.id.toString(),
+        label: (e.target as HTMLButtonElement).textContent as string,
+      },
+      {
+        onSuccess() {
+          refetchNotes();
+        },
+      }
+    );
+  };
+
   return (
     <div className='flex px-4'>
       {note.labels.length > 0 ? (
         <ul className='flex overflow-x-scroll'>
           {note.labels.map((label) => (
             <li key={label}>
-              <button className='btn btn-soft hover:btn-error rounded-full text-sm'>
+              <button
+                onClick={(e) => handleRemoveLabel(e)}
+                className='btn btn-soft hover:btn-error rounded-full text-sm'
+              >
                 {label}
               </button>
             </li>
