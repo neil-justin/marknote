@@ -47,7 +47,7 @@ const Menu = ({
   return (
     <div className='flex flex-col'>
       <div
-        className={`flex items-center shadow-sm ${
+        className={`flex items-center shadow-sm py-2 ${
           textHeader === 'Notes' ? 'justify-between' : 'justify-center'
         }`}
       >

@@ -71,7 +71,7 @@ const Drawer = ({ user }: DrawerProps) => {
           type='checkbox'
           className='drawer-toggle'
         />
-        <div className='drawer-content shadow-sm'>
+        <div className='drawer-content shadow-sm py-2'>
           <label
             htmlFor='my-drawer'
             className='btn bg-base-100 border-0 drawer-button'
