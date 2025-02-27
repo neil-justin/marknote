@@ -2,6 +2,7 @@ import {
   createNote,
   getNotes,
   removeLabel,
+  updateManyLabel,
   updateNote,
 } from '@controllers/note';
 import express from 'express';
@@ -13,5 +14,6 @@ router.post('/:email', createNote);
 router.put('/:id', updateNote);
 // Deleting Note label
 router.delete('/:id/labels/:label', removeLabel);
+router.patch('/labels/:label', updateManyLabel);
 
 export default router;

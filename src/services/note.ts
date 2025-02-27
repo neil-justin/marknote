@@ -2,6 +2,7 @@ import Note from '@models/note';
 import User from '@models/user';
 import { UserDoc } from '@/types';
 import { LabelParams, NoteDoc, NoteQuery, NoteReqBody } from '@app/types';
+import { UpdateResult } from 'mongoose';
 
 const getNotes = async (query: NoteQuery) => {
   const { email } = query;
@@ -48,4 +49,25 @@ const removeLabel = async ({ id, label }: LabelParams): Promise<NoteDoc> => {
   )) as NoteDoc;
 };
 
-export default { getNotes, createNote, updateNote, removeLabel };
+const updateManyLabel = async (
+  params: LabelParams,
+  body: { newLabel: string }
+): Promise<UpdateResult> => {
+  const { label } = params;
+  const { newLabel } = body;
+
+  console.log('label', label, 'newLabel', newLabel);
+
+  return await Note.updateMany(
+    { labels: label },
+    { $set: { 'labels.$': newLabel } }
+  );
+};
+
+export default {
+  getNotes,
+  createNote,
+  updateNote,
+  removeLabel,
+  updateManyLabel,
+};
