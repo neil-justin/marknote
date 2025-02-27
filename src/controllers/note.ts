@@ -1,4 +1,4 @@
-import { NoteDoc, NoteQuery, NoteReqBody } from '@app/types';
+import { LabelParams, NoteDoc, NoteQuery, NoteReqBody } from '@app/types';
 import { NextFunction, Request, Response } from 'express';
 import noteService from '@/services/note';
 
@@ -35,6 +35,19 @@ export const updateNote = async (
 ) => {
   try {
     const note = await noteService.updateNote(req.params.id, req.body);
+    res.json(note);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const removeLabel = async (
+  req: Request<LabelParams>,
+  res: Response<NoteDoc>,
+  next: NextFunction
+) => {
+  try {
+    const note = await noteService.removeLabel(req.params);
     res.json(note);
   } catch (error) {
     next(error);

@@ -1,7 +1,7 @@
 import Note from '@models/note';
 import User from '@models/user';
 import { UserDoc } from '@/types';
-import { NoteDoc, NoteQuery, NoteReqBody } from '@app/types';
+import { LabelParams, NoteDoc, NoteQuery, NoteReqBody } from '@app/types';
 
 const getNotes = async (query: NoteQuery) => {
   const { email } = query;
@@ -40,4 +40,12 @@ const updateNote = async (id: string, body: NoteReqBody): Promise<NoteDoc> => {
   )) as NoteDoc;
 };
 
-export default { getNotes, createNote, updateNote };
+const removeLabel = async ({ id, label }: LabelParams): Promise<NoteDoc> => {
+  return (await Note.findByIdAndUpdate(
+    id,
+    { $pull: { labels: label } },
+    { new: true }
+  )) as NoteDoc;
+};
+
+export default { getNotes, createNote, updateNote, removeLabel };
