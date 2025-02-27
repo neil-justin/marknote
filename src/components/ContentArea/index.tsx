@@ -2,6 +2,7 @@ import { NoteDoc } from '@app/types';
 import TitleArea from './TitleArea';
 import Tiptap from './Tiptap';
 import { QueryObserverResult } from '@tanstack/react-query';
+import LabelArea from './LabelArea';
 
 interface ContentAreaProps {
   refetchNotes: () => Promise<QueryObserverResult<NoteDoc[], Error>>;
@@ -25,6 +26,11 @@ const ContentArea = ({
       />
       <Tiptap
         refetchNotes={refetchNotes}
+        note={note}
+      />
+      <LabelArea
+        refetchNotes={refetchNotes}
+        itemBasePath={itemBasePath}
         note={note}
       />
     </div>
