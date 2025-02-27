@@ -20,8 +20,6 @@ export const createNote = async (
   res: Response<NoteDoc>,
   next: NextFunction
 ) => {
-  console.log('params', req.params, 'body', req.body);
-
   try {
     const note = await noteService.createNote(req.params.email, req.body);
     res.json(note);
