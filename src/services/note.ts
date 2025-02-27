@@ -2,6 +2,7 @@ import { LabelParams, NoteDoc, NoteReqBody } from '@app/types';
 import axios from 'axios';
 import { FirebaseError } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
+import { string } from 'yup';
 
 const baseUrl = '/api/notes';
 
@@ -31,4 +32,14 @@ export const updateNote = async ({
 
 export const removeLabel = async ({ id, label }: LabelParams) => {
   return (await axios.delete(`${baseUrl}/${id}/labels/${label}`)).data;
+};
+
+export const updateLabel = async ({
+  label,
+  newLabel,
+}: {
+  label: string;
+  newLabel: string;
+}) => {
+  return (await axios.patch(`${baseUrl}/labels/${label}`, { newLabel })).data;
 };

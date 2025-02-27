@@ -1,11 +1,11 @@
 import { NavLink, Outlet } from 'react-router';
 import * as Icons from '@assets/icons';
 import classNames from 'classnames';
-import { JSX } from 'react';
+import { JSX, useState } from 'react';
 import { logoutUser } from '@/services/user';
 import { User } from 'firebase/auth';
-import { getNotes } from '@/services/note';
-import { useQuery } from '@tanstack/react-query';
+import { getNotes, updateLabel } from '@/services/note';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import kebabCase from 'just-kebab-case';
 
 interface DrawerItem {
@@ -40,6 +40,10 @@ const Drawer = ({ user }: DrawerProps) => {
     },
   });
 
+  const mutation = useMutation({ mutationFn: updateLabel });
+
+  const [activeLabel, setActiveLabel] = useState<string | null>(null);
+
   if (!notes) return;
 
   // This line: (1) Flattens an Array of Objects of Array 'labels',
@@ -62,6 +66,37 @@ const Drawer = ({ user }: DrawerProps) => {
     // Log out item
     ...staticItems.slice(-1),
   ];
+
+  const handleEditLabelClick = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    // This prevents the button from propagating to NavLink. Hence preventing
+    // navigation to label page
+    e.preventDefault();
+
+    const label = (e.target as HTMLButtonElement).value;
+
+    setActiveLabel(label);
+  };
+
+  const handleLabelUpdate = (e: React.KeyboardEvent<HTMLSpanElement>) => {
+    if (e.key === 'Enter') {
+      // Prevents line break
+      e.preventDefault();
+
+      const newLabel = (e.target as HTMLSpanElement).textContent as string;
+
+      // activeLabel is the previous value of newLabel
+      mutation.mutate(
+        { label: activeLabel as string, newLabel },
+        {
+          onSuccess() {
+            setActiveLabel(null);
+          },
+        }
+      );
+    }
+  };
 
   return (
     <div className='flex'>
@@ -103,9 +138,22 @@ const Drawer = ({ user }: DrawerProps) => {
                   }
                   onClick={item.text === 'Log out' ? logoutUser : undefined}
                 >
-                  {item.icon} <span>{item.text}</span>
+                  {item.icon}{' '}
+                  <span
+                    contentEditable={activeLabel === item.text}
+                    suppressContentEditableWarning={activeLabel === item.text}
+                    onClick={(e) => e.preventDefault()}
+                    className={classNames('truncate p-1', {
+                      'hover:cursor-auto outline-1 rounded-sm':
+                        activeLabel === item.text,
+                    })}
+                    onKeyDown={(e) => handleLabelUpdate(e)}
+                  >
+                    {item.text}
+                  </span>
                   <button
-                    data-label={item.text}
+                    onClick={(e) => handleEditLabelClick(e)}
+                    value={item.text}
                     className='btn btn-ghost invisible group-hover:visible'
                   >
                     Edit
