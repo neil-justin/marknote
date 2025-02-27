@@ -10,6 +10,7 @@ export interface NoteDoc extends Document {
   createdAt: Date;
   updatedAt: Date;
   trashedAt?: Date;
+  labels: string[];
 }
 export interface NoteQuery {
   email: string;
@@ -21,4 +22,5 @@ export interface NoteReqBody {
   archived?: boolean;
   trashedAt?: Date;
   content?: string;
+  labels?: string[];
 }
