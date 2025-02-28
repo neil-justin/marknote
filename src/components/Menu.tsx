@@ -82,7 +82,7 @@ const Menu = ({
             <li key={note.id.toString()}>
               <NavLink
                 className={({ isActive }) =>
-                  classNames('block py-5 px-10 visible', {
+                  classNames('block py-5 px-10 visible hover:bg-base-300', {
                     'bg-primary/40': isActive,
                   })
                 }
