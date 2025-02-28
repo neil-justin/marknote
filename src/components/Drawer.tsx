@@ -131,7 +131,8 @@ const Drawer = ({ user }: DrawerProps) => {
         <div className='drawer-content shadow-sm py-2'>
           <label
             htmlFor='my-drawer'
-            className='btn bg-base-100 border-0 drawer-button'
+            className='btn bg-base-100 border-0 drawer-button tooltip tooltip-bottom hover:bg-base-300'
+            data-tip='Drawer'
             data-testid='app-drawer'
           >
             <Icons.Menu size={24} />
