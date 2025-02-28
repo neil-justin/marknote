@@ -128,10 +128,10 @@ const Drawer = ({ user }: DrawerProps) => {
           type='checkbox'
           className='drawer-toggle'
         />
-        <div className='drawer-content shadow-sm py-2'>
+        <div className='drawer-content shadow-sm py-2 bg-base-200 ring-4 ring-base-300'>
           <label
             htmlFor='my-drawer'
-            className='btn bg-base-100 border-0 drawer-button tooltip tooltip-bottom hover:bg-base-300'
+            className='btn bg-transparent border-0 drawer-button tooltip tooltip-bottom hover:bg-base-300'
             data-tip='Drawer'
             data-testid='app-drawer'
           >

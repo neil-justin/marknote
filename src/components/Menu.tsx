@@ -45,7 +45,7 @@ const Menu = ({
   };
 
   return (
-    <div className='flex flex-col'>
+    <div className='flex flex-col bg-base-200'>
       <div
         className={`flex items-center shadow-sm py-2 ${
           textHeader === 'Notes' ? 'justify-between' : 'justify-center'
@@ -83,7 +83,7 @@ const Menu = ({
               <NavLink
                 className={({ isActive }) =>
                   classNames('block py-5 px-10 visible hover:bg-base-300', {
-                    'bg-primary/40': isActive,
+                    'bg-primary/40 hover:bg-primary/40': isActive,
                   })
                 }
                 onClick={handleNoteItemClick}
