@@ -56,7 +56,7 @@ const LabelArea = ({ refetchNotes, itemBasePath, note }: LabelAreaProps) => {
   return (
     <div className='flex px-4'>
       {note.labels.length > 0 ? (
-        <ul className='flex overflow-x-scroll'>
+        <ul className='flex overflow-x-auto max-w-2/3'>
           {note.labels.map((label) => (
             <li key={label}>
               <button
