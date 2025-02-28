@@ -7,7 +7,7 @@ import LabelArea from './LabelArea';
 interface ContentAreaProps {
   refetchNotes: () => Promise<QueryObserverResult<NoteDoc[], Error>>;
   note: NoteDoc | undefined;
-  itemBasePath: '/notes';
+  itemBasePath: '/notes' | '/archive';
 }
 
 const ContentArea = ({

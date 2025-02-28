@@ -6,6 +6,7 @@ import VerificationReminder from './app/routes/VerificationReminder';
 import Login from '@routes/Login';
 import Drawer from '@/components/Drawer';
 import Notes from '@routes/Notes';
+import Archive from '@routes/Archive';
 
 function App() {
   const [user, setUser] = useState<User | null>(null);
@@ -30,6 +31,10 @@ function App() {
         <Route
           path='notes/:id?'
           element={<Notes />}
+        />
+        <Route
+          path='archive/:id?'
+          element={<Archive />}
         />
       </Route>
     </Routes>

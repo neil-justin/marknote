@@ -7,7 +7,7 @@ import { updateNote } from '@/services/note';
 interface TitleAreaProps {
   refetchNotes: () => Promise<QueryObserverResult<NoteDoc[], Error>>;
   note: NoteDoc;
-  itemBasePath: '/notes';
+  itemBasePath: '/notes' | '/archive';
 }
 
 const TitleArea = ({ refetchNotes, note, itemBasePath }: TitleAreaProps) => {
@@ -44,7 +44,16 @@ const TitleArea = ({ refetchNotes, note, itemBasePath }: TitleAreaProps) => {
       {
         onSuccess() {
           refetchNotes();
-          navigate(`${itemBasePath}/${note.id.toString()}`);
+          
+          if (itemBasePath === '/notes') {
+            navigate(`${itemBasePath}/${note.id.toString()}`);
+            return;
+          }
+
+          if (itemBasePath === '/archive') {
+            navigate(`${itemBasePath}`);
+            return;
+          }
         },
       }
     );
@@ -111,21 +120,21 @@ const TitleArea = ({ refetchNotes, note, itemBasePath }: TitleAreaProps) => {
             { positionAnchor: '--anchor-note-menu' } as React.CSSProperties
           }
         >
-          {itemBasePath === '/notes' ? (
+          {itemBasePath === '/notes' || itemBasePath === '/archive' ? (
             <li>
               <button onClick={handleTogglePin}>
                 {note.pinned ? 'Unpin' : 'Pin'} note
               </button>
             </li>
           ) : null}
-          {itemBasePath === '/notes' ? (
+          {itemBasePath === '/notes' || itemBasePath === '/archive' ? (
             <li>
               <button onClick={handleToggleArchive}>
-                {note.archived ? 'Unarchive' : 'Archive'} note
+                {itemBasePath === '/notes' ? 'Archive' : 'Unarchive'} note
               </button>
             </li>
           ) : null}
-          {itemBasePath === '/notes' ? (
+          {itemBasePath === '/notes' || itemBasePath === '/archive' ? (
             <li>
               <button onClick={handleMoveToTrash}>Move to trash</button>
             </li>

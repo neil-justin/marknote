@@ -9,10 +9,10 @@ import classNames from 'classnames';
 interface MenuProps {
   refetchNotes: () => Promise<QueryObserverResult<NoteDoc[], Error>>;
   notes: NoteDoc[];
-  textHeader: 'Notes';
+  textHeader: 'Notes' | 'Archive';
   icon: JSX.Element;
   menuText: string;
-  itemBasePath: '/notes';
+  itemBasePath: '/notes' | '/archive';
 }
 
 const Menu = ({
@@ -47,11 +47,14 @@ const Menu = ({
   return (
     <div className='flex flex-col bg-base-200'>
       <div
-        className={`flex items-center shadow-sm py-2 ${
-          textHeader === 'Notes' ? 'justify-between' : 'justify-center'
-        }`}
+        className={classNames(
+          `flex items-center shadow-sm py-2 min-h-[56px] ${
+            textHeader === 'Notes' ? 'justify-between' : 'justify-center'
+          }`,
+          { 'ml-2': itemBasePath === '/notes' }
+        )}
       >
-        <span className='ml-5'>{textHeader}</span>
+        <span>{textHeader}</span>
         {textHeader === 'Notes' ? (
           <div
             className='tooltip tooltip-bottom'
@@ -69,12 +72,17 @@ const Menu = ({
       {notes.length < 1 ? (
         <div className='flex flex-col gap-3 justify-center items-center flex-auto'>
           <div>{icon}</div>
-          <button
-            onClick={handleCreateNoteClick}
-            className='text-primary hover:cursor-pointer hover:text-base-content'
-          >
-            {menuText}
-          </button>
+          {textHeader === 'Notes' ? (
+            <button
+              onClick={handleCreateNoteClick}
+              className='text-primary hover:cursor-pointer hover:text-base-content'
+            >
+              {menuText}
+            </button>
+          ) : null}
+          {textHeader === 'Archive' ? (
+            <div className='text-neutral-content/50'>{menuText}</div>
+          ) : null}
         </div>
       ) : (
         <ul>

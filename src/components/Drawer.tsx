@@ -17,6 +17,7 @@ interface DrawerItem {
 
 const staticItems: DrawerItem[] = [
   { text: 'Notes', path: '/notes', icon: <Icons.Note size={24} /> },
+  { text: 'Archive', path: '/archive', icon: <Icons.Archive size={24} /> },
   {
     text: 'Log out',
     path: '/home',
