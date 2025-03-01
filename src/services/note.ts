@@ -26,6 +26,8 @@ const createNote = async (
 };
 
 const updateNote = async (id: string, body: NoteReqBody): Promise<NoteDoc> => {
+  console.log('id', id, 'body', body);
+  
   if (body.labels) {
     return (await Note.findByIdAndUpdate(
       id,
@@ -78,6 +80,10 @@ const restoreNote = async ({ id }: { id: string }): Promise<NoteDoc> => {
   )) as NoteDoc;
 };
 
+const deleteNote = async ({ id }: { id: string }): Promise<NoteDoc> => {
+  return (await Note.findByIdAndDelete(id)) as NoteDoc;
+};
+
 export default {
   getNotes,
   createNote,
@@ -86,4 +92,5 @@ export default {
   updateManyLabel,
   removeManyLabels,
   restoreNote,
+  deleteNote,
 };

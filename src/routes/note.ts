@@ -1,5 +1,6 @@
 import {
   createNote,
+  deleteNote,
   getNotes,
   removeLabel,
   removeManyLabels,
@@ -14,6 +15,8 @@ const router = express.Router();
 router.get('/', getNotes);
 router.post('/:email', createNote);
 router.put('/:id', updateNote);
+router.delete('/:id', deleteNote);
+
 // Deleting Note label
 router.delete('/:id/labels/:label', removeLabel);
 router.patch('/labels/:label', updateManyLabel);

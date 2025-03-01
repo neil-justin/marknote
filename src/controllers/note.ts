@@ -93,3 +93,16 @@ export const restoreNote = async (
     next(error);
   }
 };
+
+export const deleteNote = async (
+  req: Request<{ id: string }>,
+  res: Response<NoteDoc>,
+  next: NextFunction
+) => {
+  try {
+    const note = await noteService.deleteNote(req.params);
+    res.json(note);
+  } catch (error) {
+    next(error);
+  }
+};
