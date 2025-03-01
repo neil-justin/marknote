@@ -47,3 +47,7 @@ export const removeManyLabels = async ({ label }: LabelParams) => {
   console.log('label in services', label);
   return (await axios.delete(`${baseUrl}/labels/${label}`)).data;
 };
+
+export const restoreNote = async ({ id }: { id: string }) => {
+  return (await axios.delete(`${baseUrl}/${id}/fields/trashedAt`)).data;
+};

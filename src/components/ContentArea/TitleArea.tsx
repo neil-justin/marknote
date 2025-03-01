@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router';
 import * as Icons from '@assets/icons';
 import { NoteDoc } from '@app/types';
 import { QueryObserverResult, useMutation } from '@tanstack/react-query';
-import { updateNote } from '@/services/note';
+import { restoreNote, updateNote } from '@/services/note';
 
 interface TitleAreaProps {
   refetchNotes: () => Promise<QueryObserverResult<NoteDoc[], Error>>;
@@ -13,7 +13,11 @@ interface TitleAreaProps {
 const TitleArea = ({ refetchNotes, note, itemBasePath }: TitleAreaProps) => {
   const navigate = useNavigate();
 
+  console.log('path', itemBasePath);
   const mutation = useMutation({ mutationFn: updateNote });
+  const { mutate: mutateRestoreNote } = useMutation({
+    mutationFn: restoreNote,
+  });
 
   const handleNoteTitleChange = (e: React.KeyboardEvent<HTMLDivElement>) => {
     if (e.key === 'Enter') {
@@ -89,6 +93,20 @@ const TitleArea = ({ refetchNotes, note, itemBasePath }: TitleAreaProps) => {
     );
   };
 
+  const handleRestoreNote = () => {
+    mutateRestoreNote(
+      { id: note.id.toString() },
+      {
+        onSuccess() {
+          refetchNotes();
+          navigate(itemBasePath);
+        },
+      }
+    );
+  };
+
+  console.log('note', note);
+
   return (
     <div className='flex justify-between items-center shadow-sm px-4'>
       <div
@@ -142,7 +160,7 @@ const TitleArea = ({ refetchNotes, note, itemBasePath }: TitleAreaProps) => {
           {itemBasePath === '/trash' ? (
             <>
               <li>
-                <button>Restore note</button>
+                <button onClick={handleRestoreNote}>Restore note</button>
               </li>
               <li>
                 <button>Delete forever</button>
