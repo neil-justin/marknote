@@ -121,6 +121,12 @@ const Drawer = ({ user }: DrawerProps) => {
     );
   };
 
+  const handleLabelClick = (
+    e: React.MouseEvent<HTMLSpanElement, MouseEvent>
+  ) => {
+    if (activeLabel) e.preventDefault();
+  };
+
   return (
     <div className='flex'>
       <div className='drawer max-w-fit z-10'>
@@ -166,7 +172,9 @@ const Drawer = ({ user }: DrawerProps) => {
                   <span
                     contentEditable={activeLabel === item.text}
                     suppressContentEditableWarning={activeLabel === item.text}
-                    onClick={(e) => e.preventDefault()}
+                    onClick={
+                      item.isLabel ? (e) => handleLabelClick(e) : undefined
+                    }
                     className={classNames('truncate p-1', {
                       'hover:cursor-auto outline-1 rounded-sm':
                         activeLabel === item.text,
