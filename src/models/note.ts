@@ -12,12 +12,14 @@ const noteSchema = new mongoose.Schema(
     content: { type: String, default: undefined },
     pinned: { type: Boolean, default: false },
     archived: { type: Boolean, default: false },
-    // expires document with set trashedAt field after 7 days
-    trashedAt: { type: Date, default: undefined, expires: 604800 },
+    trashedAt: { type: Date, default: undefined },
     labels: { type: [String] },
   },
   { timestamps: true }
 );
+
+// Expire Note with a defined trashedAt field after 7 days
+noteSchema.index({ trashedAt: 1 }, { expires: '7d' });
 
 noteSchema.set('toJSON', {
   transform: (_document, returnedObject) => {
