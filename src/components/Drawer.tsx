@@ -110,7 +110,6 @@ const Drawer = ({ user }: DrawerProps) => {
     e.preventDefault();
     const label = (e.target as HTMLButtonElement).value;
 
-    console.log('label', label);
     mutateManyLabels(
       { label },
       {

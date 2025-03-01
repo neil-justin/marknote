@@ -13,7 +13,6 @@ interface TitleAreaProps {
 const TitleArea = ({ refetchNotes, note, itemBasePath }: TitleAreaProps) => {
   const navigate = useNavigate();
 
-  console.log('path', itemBasePath);
   const mutation = useMutation({ mutationFn: updateNote });
   const { mutate: mutateRestoreNote } = useMutation({
     mutationFn: restoreNote,
@@ -119,8 +118,6 @@ const TitleArea = ({ refetchNotes, note, itemBasePath }: TitleAreaProps) => {
       }
     );
   };
-
-  console.log('note', note);
 
   return (
     <div className='flex justify-between items-center shadow-sm px-4'>
