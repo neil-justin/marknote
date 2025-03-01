@@ -25,9 +25,7 @@ const createNote = async (
   return await new Note({ ...body, userId: user.id }).save();
 };
 
-const updateNote = async (id: string, body: NoteReqBody): Promise<NoteDoc> => {
-  console.log('id', id, 'body', body);
-  
+const updateNote = async (id: string, body: NoteReqBody): Promise<NoteDoc> => {  
   if (body.labels) {
     return (await Note.findByIdAndUpdate(
       id,
@@ -57,8 +55,6 @@ const updateManyLabel = async (
 ): Promise<UpdateResult> => {
   const { label } = params;
   const { newLabel } = body;
-
-  console.log('label', label, 'newLabel', newLabel);
 
   return await Note.updateMany(
     { labels: label },
