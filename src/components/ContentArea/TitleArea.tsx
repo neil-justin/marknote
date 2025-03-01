@@ -7,7 +7,7 @@ import { updateNote } from '@/services/note';
 interface TitleAreaProps {
   refetchNotes: () => Promise<QueryObserverResult<NoteDoc[], Error>>;
   note: NoteDoc;
-  itemBasePath: '/notes' | '/archive';
+  itemBasePath: '/notes' | '/archive' | '/trash';
 }
 
 const TitleArea = ({ refetchNotes, note, itemBasePath }: TitleAreaProps) => {
@@ -44,7 +44,7 @@ const TitleArea = ({ refetchNotes, note, itemBasePath }: TitleAreaProps) => {
       {
         onSuccess() {
           refetchNotes();
-          
+
           if (itemBasePath === '/notes') {
             navigate(`${itemBasePath}/${note.id.toString()}`);
             return;
@@ -138,6 +138,16 @@ const TitleArea = ({ refetchNotes, note, itemBasePath }: TitleAreaProps) => {
             <li>
               <button onClick={handleMoveToTrash}>Move to trash</button>
             </li>
+          ) : null}
+          {itemBasePath === '/trash' ? (
+            <>
+              <li>
+                <button>Restore note</button>
+              </li>
+              <li>
+                <button>Delete forever</button>
+              </li>
+            </>
           ) : null}
         </ul>
       </div>
