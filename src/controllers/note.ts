@@ -67,3 +67,16 @@ export const updateManyLabel = async (
     next(error);
   }
 };
+
+export const removeManyLabels = async (
+  req: Request<LabelParams>,
+  res: Response<UpdateResult>,
+  next: NextFunction
+) => {
+  try {
+    const result = await noteService.removeManyLabels(req.params);
+    res.json(result);
+  } catch (error) {
+    next(error);
+  }
+};

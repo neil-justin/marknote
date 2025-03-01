@@ -64,10 +64,17 @@ const updateManyLabel = async (
   );
 };
 
+const removeManyLabels = async ({
+  label,
+}: LabelParams): Promise<UpdateResult> => {
+  return await Note.updateMany({}, { $pull: { labels: label } });
+};
+
 export default {
   getNotes,
   createNote,
   updateNote,
   removeLabel,
   updateManyLabel,
+  removeManyLabels,
 };
