@@ -80,3 +80,16 @@ export const removeManyLabels = async (
     next(error);
   }
 };
+
+export const restoreNote = async (
+  req: Request<{ id: string }>,
+  res: Response<NoteDoc>,
+  next: NextFunction
+) => {
+  try {
+    const note = await noteService.restoreNote(req.params);
+    res.json(note);
+  } catch (error) {
+    next(error);
+  }
+};

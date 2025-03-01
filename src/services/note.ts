@@ -70,6 +70,14 @@ const removeManyLabels = async ({
   return await Note.updateMany({}, { $pull: { labels: label } });
 };
 
+const restoreNote = async ({ id }: { id: string }): Promise<NoteDoc> => {
+  return (await Note.findByIdAndUpdate(
+    id,
+    { $unset: { trashedAt: 1 } },
+    { new: true }
+  )) as NoteDoc;
+};
+
 export default {
   getNotes,
   createNote,
@@ -77,4 +85,5 @@ export default {
   removeLabel,
   updateManyLabel,
   removeManyLabels,
+  restoreNote,
 };

@@ -3,6 +3,7 @@ import {
   getNotes,
   removeLabel,
   removeManyLabels,
+  restoreNote,
   updateManyLabel,
   updateNote,
 } from '@controllers/note';
@@ -17,5 +18,7 @@ router.put('/:id', updateNote);
 router.delete('/:id/labels/:label', removeLabel);
 router.patch('/labels/:label', updateManyLabel);
 router.delete('/labels/:label', removeManyLabels);
+// This will delete Note document's trashedAt field
+router.delete('/:id/fields/trashedAt', restoreNote);
 
 export default router;
