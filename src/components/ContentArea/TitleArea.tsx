@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router';
 import * as Icons from '@assets/icons';
 import { NoteDoc } from '@app/types';
 import { QueryObserverResult, useMutation } from '@tanstack/react-query';
-import { restoreNote, updateNote } from '@/services/note';
+import { deleteNote, restoreNote, updateNote } from '@/services/note';
 
 interface TitleAreaProps {
   refetchNotes: () => Promise<QueryObserverResult<NoteDoc[], Error>>;
@@ -17,6 +17,9 @@ const TitleArea = ({ refetchNotes, note, itemBasePath }: TitleAreaProps) => {
   const mutation = useMutation({ mutationFn: updateNote });
   const { mutate: mutateRestoreNote } = useMutation({
     mutationFn: restoreNote,
+  });
+  const { mutate: mutateDeleteNote } = useMutation({
+    mutationFn: deleteNote,
   });
 
   const handleNoteTitleChange = (e: React.KeyboardEvent<HTMLDivElement>) => {
@@ -105,6 +108,18 @@ const TitleArea = ({ refetchNotes, note, itemBasePath }: TitleAreaProps) => {
     );
   };
 
+  const handleDeleteNote = () => {
+    mutateDeleteNote(
+      { id: note.id.toString() },
+      {
+        onSuccess() {
+          refetchNotes();
+          navigate(itemBasePath);
+        },
+      }
+    );
+  };
+
   console.log('note', note);
 
   return (
@@ -163,7 +178,7 @@ const TitleArea = ({ refetchNotes, note, itemBasePath }: TitleAreaProps) => {
                 <button onClick={handleRestoreNote}>Restore note</button>
               </li>
               <li>
-                <button>Delete forever</button>
+                <button onClick={handleDeleteNote}>Delete forever</button>
               </li>
             </>
           ) : null}
