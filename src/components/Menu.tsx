@@ -9,10 +9,10 @@ import classNames from 'classnames';
 interface MenuProps {
   refetchNotes: () => Promise<QueryObserverResult<NoteDoc[], Error>>;
   notes: NoteDoc[];
-  textHeader: 'Notes' | 'Archive' | 'Trash';
+  textHeader: 'Notes' | 'Archive' | 'Trash' | string;
   icon: JSX.Element;
   menuText: string;
-  itemBasePath: '/notes' | '/archive' | '/trash';
+  itemBasePath: '/notes' | '/archive' | '/trash' | string;
 }
 
 const Menu = ({
@@ -79,13 +79,9 @@ const Menu = ({
             >
               {menuText}
             </button>
-          ) : null}
-          {textHeader === 'Archive' ? (
+          ) : (
             <div className='text-neutral-content/50'>{menuText}</div>
-          ) : null}
-          {textHeader === 'Trash' ? (
-            <div className='text-neutral-content/50'>{menuText}</div>
-          ) : null}
+          )}
         </div>
       ) : (
         <ul>

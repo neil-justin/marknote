@@ -7,7 +7,7 @@ import { deleteNote, restoreNote, updateNote } from '@/services/note';
 interface TitleAreaProps {
   refetchNotes: () => Promise<QueryObserverResult<NoteDoc[], Error>>;
   note: NoteDoc;
-  itemBasePath: '/notes' | '/archive' | '/trash';
+  itemBasePath: '/notes' | '/archive' | '/trash' | string;
 }
 
 const TitleArea = ({ refetchNotes, note, itemBasePath }: TitleAreaProps) => {
@@ -50,14 +50,11 @@ const TitleArea = ({ refetchNotes, note, itemBasePath }: TitleAreaProps) => {
       {
         onSuccess() {
           refetchNotes();
-
-          if (itemBasePath === '/notes') {
-            navigate(`${itemBasePath}/${note.id.toString()}`);
-            return;
-          }
-
           if (itemBasePath === '/archive') {
             navigate(`${itemBasePath}`);
+            return;
+          } else {
+            navigate(`${itemBasePath}/${note.id.toString()}`);
             return;
           }
         },
@@ -150,21 +147,21 @@ const TitleArea = ({ refetchNotes, note, itemBasePath }: TitleAreaProps) => {
             { positionAnchor: '--anchor-note-menu' } as React.CSSProperties
           }
         >
-          {itemBasePath === '/notes' || itemBasePath === '/archive' ? (
+          {itemBasePath !== '/trash' ? (
             <li>
               <button onClick={handleTogglePin}>
                 {note.pinned ? 'Unpin' : 'Pin'} note
               </button>
             </li>
           ) : null}
-          {itemBasePath === '/notes' || itemBasePath === '/archive' ? (
+          {itemBasePath !== '/trash' ? (
             <li>
               <button onClick={handleToggleArchive}>
-                {itemBasePath === '/notes' ? 'Archive' : 'Unarchive'} note
+                {note.archived ? 'Unarchive' : 'Archive'} note
               </button>
             </li>
           ) : null}
-          {itemBasePath === '/notes' || itemBasePath === '/archive' ? (
+          {itemBasePath !== '/trash' ? (
             <li>
               <button onClick={handleMoveToTrash}>Move to trash</button>
             </li>

@@ -8,6 +8,7 @@ import Drawer from '@/components/Drawer';
 import Notes from '@routes/Notes';
 import Archive from '@routes/Archive';
 import Trash from '@routes/Trash';
+import Label from '@routes/Label';
 
 function App() {
   const [user, setUser] = useState<User | null>(null);
@@ -40,6 +41,10 @@ function App() {
         <Route
           path='trash/:id?'
           element={<Trash />}
+        />
+        <Route
+          path='labels/:label/:noteId?'
+          element={<Label />}
         />
       </Route>
     </Routes>

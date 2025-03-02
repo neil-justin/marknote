@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router';
 
 interface LabelAreaProps {
   refetchNotes: () => Promise<QueryObserverResult<NoteDoc[], Error>>;
-  itemBasePath: '/notes' | '/archive' | '/trash';
+  itemBasePath: '/notes' | '/archive' | '/trash' | string;
   note: NoteDoc;
 }
 
