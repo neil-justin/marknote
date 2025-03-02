@@ -34,5 +34,5 @@
 
     "types": ["node"]
   },
-  "include": ["src"]
+  "include": ["src", "tests/**/*.spec.ts"]
 }
