@@ -1,6 +1,0 @@
-POST http://localhost:3000/api/notes/neiljustin.mallari@proton.me
-Content-Type: application/json
-
-{
-  "title": "This note is created from REST client"
-}
