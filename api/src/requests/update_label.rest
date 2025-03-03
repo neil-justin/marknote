@@ -1,0 +1,6 @@
+PATCH http://localhost:3000/api/notes/labels/hello
+Content-Type: application/json
+
+{
+  "newLabel": "hi"
+}

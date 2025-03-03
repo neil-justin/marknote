@@ -1,0 +1,6 @@
+PUT http://localhost:3000/api/notes/67bf3f50f43fa4f0a88912fb
+Content-Type: application/json
+
+{
+  "labels": ["aaaaaaaaaaaaaaaaaaaaaaaaaaa"]
+}

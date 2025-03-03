@@ -1,0 +1,1 @@
+DELETE http://localhost:3000/api/notes/67c2a09a0ce7a3e3ce8a31cd/fields/trashedAt
