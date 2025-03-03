@@ -1,13 +1,3 @@
-<<<<<<< HEAD
-import User from '@/models/user';
-import { User as UserBody, UserDoc } from '@/types';
-
-const saveUser = async (user: UserBody): Promise<UserDoc> => {
-  return await new User({ uid: user.uid, email: user.email }).save();
-};
-
-export default { saveUser };
-=======
 import { UserCredential } from '@/types';
 import { FirebaseError } from 'firebase/app';
 import {
@@ -66,4 +56,3 @@ export const loginUser = async (
 export const logoutUser = async () => {
   await signOut(auth);
 };
->>>>>>> client/main
