@@ -1,0 +1,25 @@
+services:
+  marknote_client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile.react
+    ports:
+      - '5173:5173'
+    depends_on:
+      - marknote_db
+  marknote_api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile.express
+    ports:
+      - '3000:3000'
+    depends_on:
+      - marknote_db
+  marknote_db:
+    volumes:
+      - marknote_db:/data/db
+    image: mongo:latest
+    ports:
+      - '27017:27017'
+volumes:
+  marknote_db:
