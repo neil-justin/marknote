@@ -16,6 +16,7 @@ export default defineConfig({
   },
   plugins: [react(), tailwindcss()],
   server: {
+    allowedHosts: ['marknote-client.onrender.com'],
     host: true,
     proxy: {
       '/api': {
