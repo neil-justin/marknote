@@ -20,7 +20,7 @@ export default defineConfig({
     host: true,
     proxy: {
       '/api': {
-        target: 'http://marknote_api:3000',
+        target: 'https://marknote-api.onrender.com/',
         changeOrigin: true,
       },
     },
