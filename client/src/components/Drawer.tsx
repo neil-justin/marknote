@@ -21,7 +21,7 @@ const staticItems: DrawerItem[] = [
   { text: 'Trash', path: '/trash', icon: <Icons.Trash size={24} /> },
   {
     text: 'Log out',
-    path: '/home',
+    path: '/auth/login',
     icon: <Icons.Logout size={24} />,
   },
 ];
