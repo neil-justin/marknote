@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "cross-env VITE_NODE_ENV=development vite",
-    "build": "cross-env VITE_NODE_ENV=production tsc -b && vite build",
+    "dev:render": "cross-env VITE_NODE_ENV=production vite",
+    "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
     "test": "npx playwright test",
