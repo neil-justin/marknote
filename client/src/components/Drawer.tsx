@@ -1,7 +1,7 @@
 import { NavLink, Outlet } from 'react-router';
 import * as Icons from '@assets/icons';
 import classNames from 'classnames';
-import { JSX, useState } from 'react';
+import { JSX, useEffect, useState } from 'react';
 import { logoutUser } from '@/services/user';
 import { User } from 'firebase/auth';
 import { getNotes, removeManyLabels, updateLabel } from '@/services/note';
@@ -49,6 +49,18 @@ const Drawer = ({ user }: DrawerProps) => {
 
   const [activeLabel, setActiveLabel] = useState<string | null>(null);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [theme, setTheme] = useState<'light' | 'dark'>('light');
+
+  const toggleTheme = () => {
+    setTheme(theme === 'dark' ? 'light' : 'dark');
+  };
+
+  useEffect(() => {
+    (document.querySelector('html') as HTMLElement).setAttribute(
+      'data-theme',
+      theme
+    );
+  }, [theme]);
 
   if (!notes) return;
 
@@ -142,7 +154,7 @@ const Drawer = ({ user }: DrawerProps) => {
           checked={isDrawerOpen}
           onChange={(e) => setIsDrawerOpen(e.target.checked)}
         />
-        <div className='drawer-content shadow-sm py-2 bg-base-200 ring-4 ring-base-300'>
+        <div className='drawer-content shadow-sm py-2 bg-base-200 ring-4 ring-base-300 flex flex-col justify-between items-center'>
           <label
             htmlFor='my-drawer'
             className='btn bg-transparent border-0 drawer-button tooltip tooltip-bottom hover:bg-base-300'
@@ -151,6 +163,11 @@ const Drawer = ({ user }: DrawerProps) => {
           >
             <Icons.Menu size={24} />
           </label>
+          <input
+            type='checkbox'
+            className='toggle theme-controller w-8 h-5'
+            onClick={toggleTheme}
+          />
         </div>
         <div className='drawer-side'>
           <label
