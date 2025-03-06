@@ -7,6 +7,9 @@ services:
       - '5173:5173'
     depends_on:
       - marknote_db
+    volumes:
+      - ./client:/app
+      - /app/node_modules
   marknote_api:
     build:
       context: ./api
@@ -15,6 +18,9 @@ services:
       - '3000:3000'
     depends_on:
       - marknote_db
+    volumes:
+      - ./api:/app
+      - /app/node_modules
   marknote_db:
     volumes:
       - marknote_db:/data/db
