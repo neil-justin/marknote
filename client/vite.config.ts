@@ -2,6 +2,7 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import tailwindcss from '@tailwindcss/vite';
 import path from 'path';
+import 'dotenv/config';
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -20,7 +21,10 @@ export default defineConfig({
     host: true,
     proxy: {
       '/api': {
-        target: 'https://marknote-api.onrender.com/',
+        target:
+          process.env.VITE_NODE_ENV === 'production'
+            ? 'https://marknote-api.onrender.com/'
+            : 'http://marknote_api:3000/',
         changeOrigin: true,
       },
     },
