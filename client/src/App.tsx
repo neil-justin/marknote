@@ -1,6 +1,6 @@
 import { Route, Routes } from 'react-router';
 import Register from '@routes/Register';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { User } from 'firebase/auth';
 import VerificationReminder from './app/routes/VerificationReminder';
 import Login from '@routes/Login';
@@ -12,6 +12,13 @@ import Label from '@routes/Label';
 
 function App() {
   const [user, setUser] = useState<User | null>(null);
+
+  useEffect(() => {
+    (document.querySelector('html') as HTMLElement).setAttribute(
+      'data-theme',
+      localStorage.getItem('theme') ?? 'light'
+    );
+  }, []);
 
   return (
     <Routes>

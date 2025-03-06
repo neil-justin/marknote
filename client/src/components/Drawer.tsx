@@ -49,7 +49,12 @@ const Drawer = ({ user }: DrawerProps) => {
 
   const [activeLabel, setActiveLabel] = useState<string | null>(null);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const [theme, setTheme] = useState<'light' | 'dark'>('light');
+
+  const savedTheme = localStorage.getItem('theme')
+    ? (localStorage.getItem('theme') as 'light' | 'dark')
+    : 'light';
+
+  const [theme, setTheme] = useState<'light' | 'dark'>(savedTheme);
 
   const toggleTheme = () => {
     setTheme(theme === 'dark' ? 'light' : 'dark');
@@ -60,6 +65,7 @@ const Drawer = ({ user }: DrawerProps) => {
       'data-theme',
       theme
     );
+    localStorage.setItem('theme', theme);
   }, [theme]);
 
   if (!notes) return;
