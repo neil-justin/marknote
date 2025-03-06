@@ -48,6 +48,7 @@ const Drawer = ({ user }: DrawerProps) => {
   });
 
   const [activeLabel, setActiveLabel] = useState<string | null>(null);
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   if (!notes) return;
 
@@ -127,6 +128,10 @@ const Drawer = ({ user }: DrawerProps) => {
     if (activeLabel) e.preventDefault();
   };
 
+  const closeDrawer = () => {
+    setIsDrawerOpen(!isDrawerOpen);
+  };
+
   return (
     <div className='flex'>
       <div className='drawer max-w-fit z-10'>
@@ -134,6 +139,8 @@ const Drawer = ({ user }: DrawerProps) => {
           id='my-drawer'
           type='checkbox'
           className='drawer-toggle'
+          checked={isDrawerOpen}
+          onChange={(e) => setIsDrawerOpen(e.target.checked)}
         />
         <div className='drawer-content shadow-sm py-2 bg-base-200 ring-4 ring-base-300'>
           <label
@@ -166,7 +173,7 @@ const Drawer = ({ user }: DrawerProps) => {
                       group: item.isLabel,
                     })
                   }
-                  onClick={item.text === 'Log out' ? logoutUser : undefined}
+                  onClick={item.text === 'Log out' ? logoutUser : closeDrawer}
                 >
                   {item.icon}{' '}
                   <span
