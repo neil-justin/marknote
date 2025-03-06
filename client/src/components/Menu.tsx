@@ -50,11 +50,12 @@ const Menu = ({
         className={classNames(
           `flex items-center shadow-sm py-2 min-h-[56px] ${
             textHeader === 'Notes' ? 'justify-between' : 'justify-center'
-          }`,
-          { 'ml-2': itemBasePath === '/notes' }
+          }`
         )}
       >
-        <span>{textHeader}</span>
+        <span className={classNames({ 'ml-3': itemBasePath === '/notes' })}>
+          {textHeader}
+        </span>
         {textHeader === 'Notes' ? (
           <div
             className='tooltip tooltip-bottom'
