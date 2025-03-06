@@ -120,7 +120,7 @@ const TitleArea = ({ refetchNotes, note, itemBasePath }: TitleAreaProps) => {
     <div className='flex justify-between items-center shadow-sm px-4'>
       <div
         contentEditable
-        className='w-fit h-fit py-1 px-2'
+        className='w-2/3 h-fit py-1 px-2 focus:outline-none'
         onKeyDown={(e) => handleNoteTitleChange(e)}
         suppressContentEditableWarning={true}
       >
