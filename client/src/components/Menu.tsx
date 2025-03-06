@@ -81,7 +81,7 @@ const Menu = ({
               {menuText}
             </button>
           ) : (
-            <div className='text-neutral-content/50'>{menuText}</div>
+            <div className='text-base-content'>{menuText}</div>
           )}
         </div>
       ) : (
